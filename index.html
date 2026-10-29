@@ -1,0 +1,721 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Statement of Cash Flows Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout: University of New Haven course material, same frame as the other labs.
+   Frozen navy header over a frozen parts timeline; the task card and the student's statement of cash flows on the left;
+   the source documents (comparative balance sheets, income statement, additional information) on the right. */
+:root{
+  --navy:#002D74; --gold:#FFC629;
+  --paper:#eff2f7; --sheet:#ffffff; --ink:#111b2e; --muted:#56617a; --rule:#d8dfea; --rule-strong:#a9b6cc;
+  --brand:#002D74; --brand-soft:#e3e9f4;
+  --mast-bg:#002D74; --mast-ink:#ffffff; --mast-muted:#c9d4ea;
+  --dr:#1f55b0; --cr:#a1461a;
+  --hl:#fff1bf; --hl-ink:#3a2e00;
+  --est:#8a6100; --est-soft:#fcefc7;
+  --bs:#4b5670; --bs-soft:#e6e9f0;
+  --nrv:#002D74; --allow:#FFC629;
+  --good:#1b7a46; --good-soft:#dcf1e4; --bad:#b3261e; --bad-soft:#fbe2df;
+  --field:#ffffff;
+  --shadow:0 1px 2px rgba(0,25,70,.07),0 6px 18px rgba(0,25,70,.05);
+  --f-display:"Barlow Semi Condensed","Arial Narrow","Helvetica Neue",Arial,sans-serif;
+  --f-body:"Source Sans 3","Source Sans Pro","Helvetica Neue",Arial,sans-serif;
+  --f-num:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --b1:0px; --b2:0px;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#08101f; --sheet:#0f1a2e; --ink:#e6ebf5; --muted:#9aa7c0; --rule:#22304b; --rule-strong:#3a4b6e;
+  --brand:#8fb1f0; --brand-soft:#16264a;
+  --mast-bg:#001c4a; --mast-ink:#ffffff; --mast-muted:#b6c3df;
+  --dr:#94bbf5; --cr:#eca37c;
+  --hl:rgba(255,198,41,.2); --hl-ink:#ffe7a3;
+  --est:#FFC629; --est-soft:#2e2508;
+  --bs:#b3bdd4; --bs-soft:#1e2840;
+  --nrv:#5f8fe0; --allow:#FFC629;
+  --good:#62d396; --good-soft:#123020; --bad:#ff8d82; --bad-soft:#3a1715;
+  --field:#0a1426;
+  --shadow:0 1px 2px rgba(0,0,0,.45),0 6px 18px rgba(0,0,0,.3);
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#08101f; --sheet:#0f1a2e; --ink:#e6ebf5; --muted:#9aa7c0; --rule:#22304b; --rule-strong:#3a4b6e;
+  --brand:#8fb1f0; --brand-soft:#16264a;
+  --mast-bg:#001c4a; --mast-ink:#ffffff; --mast-muted:#b6c3df;
+  --dr:#94bbf5; --cr:#eca37c;
+  --hl:rgba(255,198,41,.2); --hl-ink:#ffe7a3;
+  --est:#FFC629; --est-soft:#2e2508;
+  --bs:#b3bdd4; --bs-soft:#1e2840;
+  --nrv:#5f8fe0; --allow:#FFC629;
+  --good:#62d396; --good-soft:#123020; --bad:#ff8d82; --bad-soft:#3a1715;
+  --field:#0a1426;
+  --shadow:0 1px 2px rgba(0,0,0,.45),0 6px 18px rgba(0,0,0,.3);
+  color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:15.5px;line-height:1.5;padding-bottom:env(safe-area-inset-bottom,0px)}
+[hidden]{display:none!important}
+.wrap{max-width:1360px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.12}
+.num{font-family:var(--f-num);font-variant-numeric:tabular-nums}
+button,select,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+
+/* Frozen header */
+.band1{background:var(--mast-bg);color:var(--mast-ink);border-bottom:4px solid var(--gold);z-index:6;padding-top:env(safe-area-inset-top,0px)}
+.band1 .wrap{padding-block:12px 10px;display:grid;gap:8px}
+.b1-row{display:flex;flex-wrap:wrap;gap:8px 24px;align-items:center;justify-content:space-between}
+.eyebrow{font-family:var(--f-display);font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);font-weight:700}
+.band1 h1{font-size:clamp(22px,2.6vw,30px);font-weight:700}
+.biz{flex:1 1 380px;min-width:0;max-width:78ch;font-size:14.5px;color:var(--mast-muted);line-height:1.4;margin:0}
+.biz b{color:var(--mast-ink)}
+.setchip{font-family:var(--f-num);font-size:12.5px;color:var(--mast-muted);border:1px solid rgba(255,255,255,.3);border-radius:4px;padding:5px 10px;white-space:nowrap}
+.setchip b{color:var(--gold);font-weight:600}
+.views{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center}
+.opt-label{font-family:var(--f-display);font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--mast-muted)}
+.vchip{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:600;border:1px solid rgba(255,255,255,.32);border-radius:999px;padding:2px 11px 2px 8px;cursor:pointer;user-select:none;color:var(--mast-ink)}
+.vchip:has(input:checked){border-color:var(--gold);background:rgba(255,198,41,.16)}
+.vchip input{width:15px;height:15px;margin:0;accent-color:var(--gold)}
+.band2{position:sticky;top:0;z-index:5;background:var(--sheet);border-bottom:1px solid var(--rule);box-shadow:var(--shadow)}
+.band2 .wrap{padding-block:8px;display:flex;flex-wrap:wrap;gap:8px 20px;align-items:flex-end;justify-content:space-between}
+@media (min-width:760px){.band1{position:sticky;top:0}.band2{top:var(--b1)}}
+.status{display:flex;flex-direction:column;align-items:flex-end;gap:3px;font-size:13.5px;color:var(--muted)}
+.status b{color:var(--ink)}
+.score{font-size:13px;font-weight:600;background:var(--hl);color:var(--hl-ink);border-radius:999px;padding:2px 10px}
+.legend-dots{display:flex;gap:10px;font-size:12px}
+.legend-dots i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px;vertical-align:0}
+
+.timeline{display:flex;gap:10px;align-items:stretch;overflow-x:auto;padding:4px 2px 2px;min-width:0;flex:1 1 560px}
+.phase{display:flex;flex-direction:column;gap:3px;flex:0 0 auto}
+.phase-label{font-family:var(--f-display);font-size:12px;letter-spacing:.09em;text-transform:uppercase;font-weight:700;white-space:nowrap}
+.ph-h .phase-label{color:var(--brand)} .ph-est .phase-label{color:var(--est)} .ph-bs .phase-label{color:var(--bs)}
+.ticks{display:flex;gap:3px}
+.tick{position:relative;flex:0 0 auto;min-width:30px;height:28px;border-radius:4px;border:1px solid var(--rule);background:var(--paper);font-family:var(--f-num);font-size:11px;font-weight:600;cursor:pointer;color:var(--muted);padding:0 4px}
+.ph-h .tick.done{background:var(--navy);border-color:var(--navy);color:#fff}
+.ph-est .tick.done{background:var(--gold);border-color:var(--gold);color:#111b2e}
+.ph-bs .tick.done{background:var(--bs);border-color:var(--bs);color:var(--sheet)}
+.tick.cur{outline:2px solid var(--ink);outline-offset:1px}
+.tick.s-first::after,.tick.s-retry::after,.tick.s-shown::after,.tick.s-skipped::after{content:"";position:absolute;top:-4px;right:-4px;width:9px;height:9px;border-radius:50%;border:1.5px solid var(--sheet)}
+.tick.s-first::after{background:var(--good)} .tick.s-retry::after{background:var(--gold)}
+.tick.s-shown::after,.tick.s-skipped::after{background:var(--muted)}
+
+/* Grid */
+main{padding-block:18px 40px;display:grid;gap:18px}
+.grid-top{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:18px;align-items:start}
+.grid-top.solo{grid-template-columns:minmax(0,1fr)}
+@media (max-width:1060px){.grid-top{grid-template-columns:minmax(0,1fr)}}
+.col{display:grid;gap:18px;min-width:0}
+.panel{background:var(--sheet);border:1px solid var(--rule);border-radius:8px;box-shadow:var(--shadow);min-width:0;overflow:hidden;scroll-margin-top:calc(var(--b1) + var(--b2) + 12px)}
+@media (max-width:759px){.panel{scroll-margin-top:calc(var(--b2) + 12px)}}
+.panel-h{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:baseline;justify-content:space-between;padding:12px 16px 10px;border-bottom:1px solid var(--rule);border-top:3px solid var(--navy)}
+:root[data-theme="dark"] .panel-h{border-top-color:var(--brand)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .panel-h{border-top-color:var(--brand)}}
+.panel-h h2{font-size:21px;font-weight:700;color:var(--brand)}
+.panel-h .sub{font-size:13.5px;color:var(--muted)}
+.panel-b{padding:14px 16px 16px}
+#pEntry .panel-h{border-top-color:var(--gold)}
+#pBS{border-color:var(--rule-strong)}
+#pBS .panel-h{border-top-color:var(--gold);background:linear-gradient(var(--est-soft),var(--sheet))}
+
+.pill{display:inline-block;font-family:var(--f-display);font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;border-radius:999px;padding:2px 10px}
+.pill.h{background:var(--brand-soft);color:var(--brand)}
+.pill.est{background:var(--est-soft);color:var(--est)}
+.pill.bs{background:var(--bs-soft);color:var(--bs)}
+
+/* Entry card */
+.entry-meta{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;font-size:13.5px;color:var(--muted)}
+.entry-title{font-size:23px;font-weight:700;margin:10px 0 4px}
+.entry-desc{margin:0 0 12px}
+.calc{font-family:var(--f-num);font-size:13px;background:var(--paper);border-radius:6px;padding:6px 10px;margin:-4px 0 12px;display:inline-block}
+.je{width:100%;border-collapse:collapse;font-size:14.5px}
+.je th{font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:700;text-align:left;padding:6px;border-bottom:2px solid var(--rule-strong)}
+.je th.r,.je td.r{text-align:right}
+.je td{padding:7px 6px;border-bottom:1px solid var(--rule)}
+.je td.cr-name{padding-left:30px}
+.je .dr-amt{color:var(--dr)} .je .cr-amt{color:var(--cr)}
+.why{margin-top:12px;background:var(--paper);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:10px 12px;font-size:14.5px}
+.why b{font-family:var(--f-display);font-size:16px}
+.effects{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.eff{font-size:13.5px;font-weight:600;border-radius:6px;padding:4px 9px;border:1px solid var(--rule)}
+.eff .num{font-weight:600}
+.eff.up{background:var(--good-soft);color:var(--good);border-color:transparent}
+.eff.down{background:var(--bad-soft);color:var(--bad);border-color:transparent}
+.eff.none{color:var(--muted)}
+.eff.nrv{border:2px solid var(--gold)}
+.note{font-size:13.5px;color:var(--muted);margin-top:8px}
+.result{border-radius:8px;padding:8px 12px;font-size:14px;font-weight:600;margin-bottom:12px}
+.result.ok{background:var(--good-soft);color:var(--good)}
+.result.no{background:var(--est-soft);color:var(--est)}
+
+/* Journal entry form: account dropdowns (alphabetical) with debit and credit boxes */
+.rec{width:100%;border-collapse:collapse;font-size:14px}
+.rec th{font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:700;text-align:left;padding:6px 4px;border-bottom:2px solid var(--rule-strong)}
+.rec th.r{text-align:right}
+.rec td{padding:6px 4px;vertical-align:top}
+.rec tr.line td{border-top:1px solid var(--rule)}
+.rec tr.fb td{padding-top:0;border-top:0}
+.rec select,.rec input{width:100%;background:var(--field);border:1px solid var(--rule-strong);border-radius:6px;padding:6px 7px;font-size:14px;min-height:36px}
+.rec input{font-family:var(--f-num);text-align:right}
+.rec td.amt{width:104px}
+.rec .ok select,.rec .ok input.filled{border-color:var(--good);box-shadow:inset 0 0 0 1px var(--good)}
+.rec .bad-a select{border-color:var(--bad);box-shadow:inset 0 0 0 1px var(--bad)}
+.rec .bad-s input.filled,.rec .bad-n input.filled{border-color:var(--bad);box-shadow:inset 0 0 0 1px var(--bad)}
+.rec .fmsg{margin-top:0}
+.rec tfoot td{font-family:var(--f-num);font-size:13px;text-align:right;color:var(--muted);border-top:2px solid var(--rule-strong);padding-top:6px}
+fieldset.cg{border:0;margin:0;padding:0;min-width:0}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.choices{display:flex;flex-wrap:wrap;gap:6px}
+.choice{position:relative;display:inline-flex}
+.choice input{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+.choice span{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--rule-strong);background:var(--field);border-radius:999px;padding:3px 11px 3px 7px;font-size:13px;font-weight:600;cursor:pointer;line-height:1.3;min-height:30px;user-select:none}
+.choice span::before{content:"";width:13px;height:13px;border-radius:50%;border:2px solid var(--rule-strong);flex:none;box-sizing:border-box;background:var(--field)}
+.choice span:hover{background:var(--brand-soft)}
+.choice input:checked+span{background:var(--navy);border-color:var(--navy);color:#fff}
+.choice input:checked+span::before{border:4px solid #fff;background:var(--gold)}
+.choice input:focus-visible+span{outline:2px solid var(--brand);outline-offset:2px}
+.choice input:disabled+span{cursor:default}
+.choice input:disabled:not(:checked)+span{opacity:.5}
+.grp-ok .choice input:checked+span{background:var(--good);border-color:var(--good)}
+.grp-no .choice input:checked+span{background:var(--bad);border-color:var(--bad)}
+.choices.stack{flex-direction:column;align-items:stretch}
+.choices.stack .choice span{border-radius:8px;width:100%;padding:7px 12px 7px 10px;font-weight:500;font-size:14px}
+.fmsg{font-size:13.5px;font-weight:600;display:flex;gap:6px;margin-top:8px}
+.fmsg.ok{color:var(--good)} .fmsg.no{color:var(--bad)}
+.overall{margin-top:10px;font-size:14px;border-radius:8px;padding:9px 12px}
+.overall.ok{background:var(--good-soft);color:var(--good)}
+.overall.no{background:var(--bad-soft);color:var(--bad)}
+.overall.shown{background:var(--est-soft);color:var(--est)}
+.overall ul{margin:4px 0 0;padding-left:18px}
+.hintbox{margin-top:10px;font-size:13.5px;background:var(--est-soft);color:var(--est);border-radius:8px;padding:8px 12px}
+.hintbox .num{color:var(--ink)}
+
+/* Calculation fields */
+.fields{display:grid;gap:10px}
+.field{border:1px solid var(--rule);border-radius:8px;padding:10px 12px}
+.field.ok{border-color:var(--good);box-shadow:inset 0 0 0 1px var(--good)}
+.field.no{border-color:var(--bad);box-shadow:inset 0 0 0 1px var(--bad)}
+.frow{display:grid;grid-template-columns:minmax(0,1fr) 168px;gap:10px;align-items:center}
+.flabel{font-weight:600;font-size:14.5px}
+.flabel small{display:block;font-weight:400;color:var(--muted);font-size:13px}
+.inbox{display:flex;align-items:center;border:1px solid var(--rule-strong);border-radius:6px;background:var(--field);min-height:38px;overflow:hidden}
+.inbox .pre{font-family:var(--f-num);font-size:13px;color:var(--muted);padding:0 6px}
+.inbox input{border:0;background:transparent;width:100%;min-width:0;padding:7px 8px;font-family:var(--f-num);font-size:14.5px;text-align:right}
+.inbox input:focus{outline:none}
+.inbox:focus-within{outline:2px solid var(--brand);outline-offset:1px}
+.work{margin-top:6px;font-family:var(--f-num);font-size:12.5px;background:var(--paper);border-radius:6px;padding:6px 9px;line-height:1.6}
+.given{background:var(--paper);border-radius:8px;padding:9px 12px;margin:0 0 12px;font-size:14.5px}
+.given b{font-family:var(--f-num)}
+table.aging{width:100%;border-collapse:collapse;font-size:14px;margin-bottom:12px}
+.aging caption{caption-side:top;text-align:left;font-family:var(--f-display);font-weight:700;font-size:16px;color:var(--brand);padding-bottom:6px}
+.aging th{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:5px 6px;border-bottom:2px solid var(--rule-strong);text-align:right;white-space:nowrap}
+.aging th:first-child,.aging td:first-child{text-align:left}
+.aging td{padding:5px 6px;border-bottom:1px solid var(--rule);text-align:right;font-family:var(--f-num);font-variant-numeric:tabular-nums;white-space:nowrap}
+.aging td:first-child{font-family:var(--f-body)}
+.aging td.in{width:132px}
+.aging tfoot td{font-weight:700;border-top:2px solid var(--ink)}
+.aging .inbox{min-height:34px}
+.aging tr.ok .inbox{border-color:var(--good);box-shadow:inset 0 0 0 1px var(--good)}
+.aging tr.no .inbox{border-color:var(--bad);box-shadow:inset 0 0 0 1px var(--bad)}
+.aging tr.fb td{border-top:0;padding-top:0;text-align:left;font-family:var(--f-body);white-space:normal}
+.aging tr.wk td{text-align:left;font-family:var(--f-num);font-size:12px;color:var(--muted);border-top:0;padding-top:0}
+
+.actions{display:flex;flex-wrap:wrap;gap:8px 12px;margin-top:16px;padding-top:12px;border-top:1px solid var(--rule);align-items:center;justify-content:space-between}
+.actions .grp{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.actions .ask{font-size:13.5px;font-weight:600}
+.btn{border:1px solid var(--rule-strong);background:var(--sheet);border-radius:6px;padding:7px 12px;font-size:14.5px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px;min-height:36px}
+.btn:hover{background:var(--brand-soft)}
+.btn:disabled{opacity:.4;cursor:default;background:var(--sheet)}
+.btn.primary{background:var(--navy);border-color:var(--navy);color:#fff}
+.btn.primary:hover{background:#0a3d8f}
+.btn.small{font-size:13.5px;padding:5px 10px;min-height:32px}
+
+/* Long-term assets additions */
+.frow.cls{grid-template-columns:minmax(0,1fr) auto}
+.flabel small.num{display:block;font-family:var(--f-num);font-size:13px;color:var(--muted);font-weight:500}
+.inbox .post{font-family:var(--f-num);font-size:13px;color:var(--muted);padding:0 8px}
+.st tr.h td{font-weight:700;padding-top:10px}
+.aging td small{font-family:var(--f-body);font-size:11.5px;color:var(--muted)}
+.aging tr.hlrow td{background:var(--hl);color:var(--hl-ink)}
+.aging tr.gone td{color:var(--muted)}
+.aging tr.gone td:first-child .nm{text-decoration:line-through}
+.aging.reg td{white-space:normal;vertical-align:top}
+.aging.reg td small{font-family:var(--f-body)}
+@media (max-width:640px){.frow.cls{grid-template-columns:minmax(0,1fr)}}
+
+/* Balance sheet impact */
+.cap-firm{font-family:var(--f-display);font-weight:700;font-size:17px;color:var(--brand)}
+.cap-name{font-family:var(--f-display);font-weight:600;font-size:16px}
+.cap-date{font-size:12.5px;color:var(--muted)}
+table.st{width:100%;border-collapse:collapse;font-size:14.5px}
+.st caption{caption-side:top;text-align:center;padding-bottom:8px;border-bottom:2px solid var(--ink)}
+.st th{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:6px 4px 3px;text-align:right}
+.st td{padding:4px 4px;vertical-align:bottom}
+.st td.n{text-align:right;font-family:var(--f-num);font-variant-numeric:tabular-nums;white-space:nowrap;width:92px}
+.st td.dl{text-align:right;font-family:var(--f-num);font-size:12.5px;font-weight:600;white-space:nowrap;width:86px}
+.dl.up{color:var(--good)} .dl.down{color:var(--bad)} .dl.zero{color:var(--muted);font-weight:500}
+.st td.i1{padding-left:18px} .st td.i2{padding-left:34px}
+.st td.ul{border-bottom:1px solid var(--ink)}
+.st td.dul{border-bottom:3px double var(--ink);font-weight:700}
+.st tr.tot td:first-child{font-weight:700}
+.st tr.nrv td{font-weight:700;background:var(--est-soft)}
+.st tr.chg td:not(.dl){background:var(--hl);color:var(--hl-ink)}
+.nrvbar{margin:14px 0 4px}
+.nrvbar .track{height:22px;background:var(--paper);border-radius:4px;overflow:hidden;display:flex}
+.nrvbar .seg-n{background:var(--nrv);transition:width .45s ease}
+.nrvbar .seg-a{background:repeating-linear-gradient(45deg,var(--allow),var(--allow) 5px,#e6ac00 5px,#e6ac00 9px);transition:width .45s ease}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:12.5px;color:var(--muted);margin-top:5px}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.bs-note{margin-top:12px;font-size:14px;border-radius:8px;padding:9px 12px;background:var(--paper)}
+.bs-note.warn{background:var(--bad-soft);color:var(--bad)}
+.bs-note b{font-family:var(--f-display);font-size:15px}
+.is-mini{margin-top:16px}
+.is-mini h3{font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+@media (prefers-reduced-motion:reduce){.nrvbar .seg-n,.nrvbar .seg-a{transition:none}}
+
+/* T-accounts */
+.t-tools{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center}
+.chipbox{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:600;border:1px solid var(--rule);border-radius:999px;padding:3px 11px 3px 8px;cursor:pointer;user-select:none}
+.chipbox:has(input:checked){border-color:var(--rule-strong);background:var(--brand-soft)}
+.chipbox input{width:16px;height:16px;margin:0;accent-color:var(--navy)}
+.t-group{display:grid;gap:8px}
+.t-group + .t-group{margin-top:16px}
+.t-group h3{font-size:15px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+.t-group h3 span{font-family:var(--f-body);font-weight:500;text-transform:none;letter-spacing:0;font-size:12.5px}
+.t-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(178px,1fr));gap:10px}
+.tacct{border:1px solid var(--rule);border-radius:6px;padding:8px 8px 6px;background:var(--sheet);transition:opacity .2s}
+.tacct.idle{opacity:.45}
+.tacct.touch{border-color:var(--gold);box-shadow:0 0 0 2px var(--hl)}
+.tacct.key{border-width:2px;border-color:var(--rule-strong)}
+.tacct.key.touch{border-color:var(--gold)}
+.t-head{display:flex;gap:6px;align-items:baseline;justify-content:center;text-align:center;font-size:13.5px;font-weight:700;line-height:1.25;min-height:34px;padding-bottom:4px;border-bottom:2px solid var(--ink)}
+.t-head .no{font-family:var(--f-num);font-size:11px;color:var(--muted);font-weight:500}
+.t-body{display:grid;grid-template-columns:1fr 1fr;min-height:46px}
+.t-side{padding:4px;display:flex;flex-direction:column;gap:1px}
+.t-side.l{border-right:2px solid var(--ink)}
+.t-side .lab{font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.t-side.r .lab{text-align:right}
+.t-row{display:flex;justify-content:space-between;gap:4px;font-family:var(--f-num);font-size:12px;font-variant-numeric:tabular-nums;border-radius:3px;padding:0 3px}
+.t-row .ref{color:var(--muted);font-size:10.5px}
+.t-side.l .amt{color:var(--dr)} .t-side.r .amt{color:var(--cr)}
+.t-row.cur{background:var(--hl);color:var(--hl-ink)}
+.t-row.cur .ref,.t-row.cur .amt{color:inherit}
+.t-row.balrow{border-top:1px solid var(--ink);margin-top:3px;padding-top:2px;font-weight:600}
+.t-row.balrow .amt{color:var(--ink)}
+.t-zero{font-size:11px;color:var(--muted);text-align:center;margin-top:4px;font-style:italic}
+.t-flag{font-size:11px;color:var(--bad);text-align:center;margin-top:4px;font-weight:700}
+.empty{color:var(--muted);font-size:14px;padding:18px 4px;text-align:center}
+
+/* Journal */
+.jitem{display:grid;grid-template-columns:64px 76px minmax(0,1fr);gap:10px;padding:9px 6px;border-bottom:1px solid var(--rule)}
+.jitem.cur{background:var(--hl);color:var(--hl-ink)}
+.jitem .ref{font-family:var(--f-num);font-weight:600;font-size:13px}
+.jitem .dt{font-size:13px;color:var(--muted)}
+.jitem.cur .dt{color:inherit}
+.jitem .lines{font-family:var(--f-num);font-size:12.5px;display:grid;gap:1px;min-width:0}
+.jitem .lines .t{font-family:var(--f-body);font-size:14px;font-weight:600;margin-bottom:3px}
+.jl{display:flex;justify-content:space-between;gap:12px}
+.jl.c{padding-left:22px}
+.jl .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.jhead{font-family:var(--f-display);font-size:12.5px;letter-spacing:.09em;text-transform:uppercase;font-weight:700;padding:12px 6px 4px}
+.jhead.h{color:var(--brand)} .jhead.est{color:var(--est)}
+@media (max-width:520px){.jitem{grid-template-columns:52px minmax(0,1fr)}.jitem .dt{display:none}.frow{grid-template-columns:minmax(0,1fr)}.status{align-items:flex-start}.aging td.in{width:110px}.st td.dl{display:none}.st th.dl{display:none}}
+@keyframes flash{0%{background:var(--hl)}100%{background:transparent}}
+.flash{animation:flash 1.2s ease-out}
+@media (prefers-reduced-motion:reduce){.flash{animation:none}}
+footer{font-size:12.5px;color:var(--muted);padding-block:0 30px}
+.addl{margin:4px 0 0;padding-left:20px;font-size:14.5px}
+.addl li{margin-bottom:5px}
+#pBS .panel-h{background:none}
+</style>
+</head>
+<body>
+
+<header class="band1" id="band1">
+  <div class="wrap">
+    <div class="b1-row">
+      <div>
+        <div class="eyebrow">University of New Haven · Financial Accounting · Statement of Cash Flows</div>
+        <h1>Statement of Cash Flows Lab</h1>
+      </div>
+      <p class="biz" id="biz"></p>
+      <div class="setchip" title="Each problem set uses different amounts">Problem set <b id="setNo">—</b></div>
+    </div>
+  </div>
+</header>
+<div class="band2" id="band2">
+  <div class="wrap">
+    <div class="timeline" id="timeline" aria-label="Parts of the lab"></div>
+    <div class="status">
+      <div id="where"></div>
+      <span class="score" id="score" hidden></span>
+      <div class="legend-dots"><span><i style="background:var(--good)"></i>First try</span><span><i style="background:var(--gold)"></i>Retried</span><span><i style="background:var(--muted)"></i>Answer shown</span></div>
+    </div>
+  </div>
+</div>
+
+<main class="wrap">
+  <div class="grid-top">
+    <div class="col">
+      <section class="panel" id="pPart" aria-labelledby="partH">
+        <div class="panel-h"><h2 id="partH">Your task</h2><span class="sub" id="partSub"></span></div>
+        <div class="panel-b" id="part"></div>
+      </section>
+      <section class="panel" id="pSCF" aria-labelledby="scfH">
+        <div class="panel-h"><h2 id="scfH">Your statement of cash flows</h2><span class="sub">Fills in as you finish each part</span></div>
+        <div class="panel-b" id="scf"></div>
+      </section>
+    </div>
+    <div class="col">
+      <section class="panel" id="pBS" aria-labelledby="bsH">
+        <div class="panel-h"><h2 id="bsH">Comparative balance sheets</h2><span class="sub">Source document</span></div>
+        <div class="panel-b" id="bs"></div>
+      </section>
+      <section class="panel" id="pIS" aria-labelledby="isH">
+        <div class="panel-h"><h2 id="isH">Income statement and additional information</h2><span class="sub">Source documents</span></div>
+        <div class="panel-b" id="is"></div>
+      </section>
+    </div>
+  </div>
+</main>
+<footer class="wrap">Problem Solvers, Inc. and all figures are illustrative. The statement uses the indirect method for operating activities. Each problem set changes the amounts.</footer>
+
+<script>
+(function(){
+"use strict";
+const YEAR=new Date().getFullYear();
+const KEY="scflab1";
+const $=id=>document.getElementById(id);
+function fmt(n){return Math.abs(n).toLocaleString("en-US");}
+function d$(n){return "$"+fmt(n);}
+function money(n,dollar){return (n<0?"(":"")+(dollar?"$":"")+fmt(n)+(n<0?")":"");}
+function sg(n){return (n<0?"−":"+")+d$(n);}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
+function parseAmt(s){s=String(s==null?"":s).replace(/[$,\s]/g,"").replace(/[−–]/g,"-");if(s==="")return null;let neg=false;const m=/^\((.*)\)$/.exec(s);if(m){s=m[1];neg=true;}const n=Number(s);return isFinite(n)?(neg?-n:n):NaN;}
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+function randomSeed(){return 10000+Math.floor(Math.random()*90000);}
+
+$("biz").innerHTML='<b>Problem Solvers, Inc.</b> sells consulting services and “how-to” business guides. Its bank wants a <b>statement of cash flows</b> for the six months ended December 31, '+YEAR+'. Prepare it with the <b>indirect method</b> from the June 30 and December 31 balance sheets, the income statement, and the additional information.';
+
+// ---------- Problem generator ----------
+function gen(seed){
+  const r=mulberry32(seed);
+  const R=(a,b,s)=>{s=s||1;return a+s*Math.floor(r()*(Math.floor((b-a)/s)+1));};
+  const ch=(lo,hi)=>{let v;do{v=R(lo,hi)*100;}while(v===0);return r()<0.5?v:-v;};
+  for(let t=0;t<5000;t++){
+    const B={cash:R(150,400)*100,ar:R(250,500)*100,inv:R(300,600)*100,pre:R(20,60)*100,land:R(400,900)*100,eq:R(120,200)*1000,ad:R(30,60)*1000,
+      ap:R(150,350)*100,wp:R(30,80)*100,np:R(50,100)*1000,cs:R(100,180)*1000};
+    // income statement, six months
+    const sales=R(180,320)*1000, svc=R(40,90)*1000, cogs=Math.round(sales*R(55,65)/100/100)*100, opex=R(60,110)*1000, dep=R(4,9)*1000, intx=R(10,40)*100;
+    const X=R(15,40)*1000, Y=Math.round(X*R(30,70)/100/100)*100, BV=X-Y, gainSale=r()<0.5;
+    const gl=(gainSale?1:-1)*R(5,30)*100, price=BV+gl;          // gl > 0 gain, < 0 loss
+    const pretax=sales+svc-cogs-opex-dep+gl-intx; if(pretax<10000)continue;
+    const tax=Math.round(pretax*0.21/100)*100, NI=pretax-tax;
+    const P=R(20,60)*1000, Lnd=R(10,40)*1000, S=R(10,40)*1000, Rp=R(5,20)*1000, D=Math.round(NI*R(15,40)/100/500)*500;
+    if(D<=0)continue;
+    const dAR=ch(20,80), dInv=ch(20,90), dPre=ch(2,15), dAP=ch(15,60), dWP=ch(5,25);
+    if(new Set([dAR>0,dInv>0,dPre>0,dAP>0,dWP>0]).size<2)continue;
+    const E={ar:B.ar+dAR,inv:B.inv+dInv,pre:B.pre+dPre,land:B.land+Lnd,eq:B.eq-X+P,ad:B.ad-Y+dep,ap:B.ap+dAP,wp:B.wp+dWP,np:B.np-Rp,cs:B.cs+S+Lnd};
+    if(Object.values(E).some(v=>v<=0)||E.ad>=E.eq)continue;
+    const op=NI+dep-gl-dAR-dInv-dPre+dAP+dWP, inv=price-P, fin=-Rp+S-D, net=op+inv+fin;
+    E.cash=B.cash+net; if(E.cash<5000||net===0||op<=0||price<=0)continue;
+    B.re=B.cash+B.ar+B.inv+B.pre+B.land+B.eq-B.ad-B.ap-B.wp-B.np-B.cs; if(B.re<20000)continue;
+    E.re=B.re+NI-D;
+    const totA=x=>x.cash+x.ar+x.inv+x.pre+x.land+x.eq-x.ad, totL=x=>x.ap+x.wp+x.np+x.cs+x.re;
+    if(totA(E)!==totL(E)||totA(B)!==totL(B))continue;
+    if(op===NI||Math.abs(gl)===dep||Math.abs(E.eq-B.eq)===P||Math.abs(E.re-B.re)===D||E.eq===B.eq)continue;
+    return {B,E,sales,svc,cogs,opex,dep,intx,X,Y,BV,gl,price,pretax,tax,NI,P,Lnd,S,Rp,D,dAR,dInv,dPre,dAP,dWP,op,inv,fin,net,totA,totL};
+  }
+  throw new Error("Could not generate a problem set");
+}
+
+let P=null, seed=0, PARTS=[];
+const LINES=[["cash","Cash"],["ar","Accounts receivable"],["inv","Inventory"],["pre","Prepaid insurance"],["land","Land"],["eq","Equipment"],["ad","Less: Accumulated depreciation"],["ap","Accounts payable"],["wp","Wages payable"],["np","Notes payable (long-term)"],["cs","Common stock"],["re","Retained earnings"]];
+const CLS=[["op","Operating"],["inv","Investing"],["fin","Financing"],["nc","Noncash (disclosed separately)"]];
+const incDec=v=>v>0?"increase":"decrease";
+
+function buildParts(){
+  const p=P, gainTxt=p.gl>0?"Gain":"Loss";
+  const curr=[["ar","Accounts receivable","asset",p.dAR],["inv","Inventory","asset",p.dInv],["pre","Prepaid insurance","asset",p.dPre],["ap","Accounts payable","liab",p.dAP],["wp","Wages payable","liab",p.dWP]];
+  const adjFor=c=>c[2]==="asset"?-c[3]:c[3];
+  const adjWhy=c=>{const up=c[3]>0;
+    if(c[2]==="asset")return up?"An increase in "+c[1].toLowerCase()+" means cash went into it instead of the bank, so it is deducted.":"A decrease in "+c[1].toLowerCase()+" means it was turned into cash or used without paying cash this period, so it is added.";
+    return up?"An increase in "+c[1].toLowerCase()+" means expenses were recorded but not yet paid, so it is added.":"A decrease in "+c[1].toLowerCase()+" means Problem Solvers paid more cash than the expense it recorded, so it is deducted.";};
+  return [
+    {id:"chg",phase:"an",tick:"Changes",title:"Find the changes in the balance sheet accounts",
+     desc:"The statement of cash flows explains why cash changed by looking at how every other account changed. Enter each change: positive for an increase, negative (use − or parentheses) for a decrease.",
+     hint:"Change = December 31 balance − June 30 balance. An increase is positive; a decrease is negative.",
+     why:"Every change in a noncash account has a cash effect or a noncash explanation. The statement of cash flows sorts those changes into operating, investing, and financing activities.",
+     fields:[["cash","Cash",p.net]].concat(curr.map(c=>[c[0],c[1],c[3]])).map(([id,lab,ans])=>({id,label:lab,ans,signed:1,work:d$(p.E[id])+" − "+d$(p.B[id])+" = "+(ans<0?"−":"+")+d$(ans),
+       wrong:v=>v===-ans?"Right amount, wrong direction. "+lab+" "+(ans>0?"increased":"decreased")+" from "+d$(p.B[id])+" to "+d$(p.E[id])+".":"December 31 balance − June 30 balance."}))},
+    {id:"cls",phase:"an",tick:"Classify",title:"Classify each item",
+     desc:"Decide where each item belongs on the statement of cash flows.",
+     hint:"Operating: items in net income and changes in current assets and current liabilities. Investing: buying and selling long-term assets. Financing: borrowing, repaying, issuing stock, and paying dividends. Noncash: investing or financing with no cash.",
+     why:"Operating activities are the cash effects of earning net income. Investing activities buy and sell long-term assets. Financing activities raise money from or return it to lenders and owners. Transactions with no cash at all are disclosed separately.",
+     fields:[
+      ["c1","Depreciation expense of "+d$(p.dep),"op","Depreciation is part of net income, so it is an operating adjustment (added back because it used no cash)."],
+      ["c2",gainTxt+" on sale of equipment, "+d$(Math.abs(p.gl)),"op","The "+gainTxt.toLowerCase()+" is part of net income, so it is removed in the operating section. The cash from the sale goes in investing."],
+      ["c3","Change in accounts receivable","op","Receivables come from sales, a main operating activity."],
+      ["c4","Change in accounts payable","op","Payables for inventory and supplies relate to operations."],
+      ["c5","Cash received from selling equipment","inv","Selling a long-term asset is an investing activity."],
+      ["c6","Cash paid to buy equipment","inv","Buying a long-term asset is an investing activity."],
+      ["c7","Land acquired by issuing common stock","nc","No cash changed hands, so it is disclosed as a noncash investing and financing activity, not listed in a section."],
+      ["c8","Repayment of notes payable","fin","Repaying a lender is a financing activity."],
+      ["c9","Issuing common stock for cash","fin","Raising money from owners is a financing activity."],
+      ["c10","Paying cash dividends","fin","Paying owners a return is a financing activity under US GAAP."]
+     ].map(([id,lab,ans,why])=>({id,kind:"cls",label:lab,ans,opts:CLS,work:CLS.find(o=>o[0]===ans)[1]+": "+why,
+       wrong:v=>(v==="op"&&id==="c10"?"Dividends come out of earnings, but they aren't a cost of operating. ":v==="op"&&ans==="inv"?"Long-term assets aren't part of day-to-day operations. ":"")+why})) },
+    {id:"op",phase:"prep",tick:"Operating",title:"Cash flows from operating activities",
+     desc:"Start with net income and adjust it to cash. Enter additions as positive numbers and deductions as negative numbers.",
+     hint:"Add depreciation and losses; deduct gains. Deduct increases in current assets and add decreases. Add increases in current liabilities and deduct decreases.",
+     why:"Net income is measured on the accrual basis. The adjustments remove noncash items (depreciation, gains, losses) and convert revenues and expenses to the cash actually received and paid during the period.",
+     fields:[
+      {id:"ni",label:"Net income",ans:p.NI,signed:1,work:"From the income statement: "+d$(p.NI),wrong:v=>v===p.pretax?"Use net income, after income tax expense.":"Start with net income from the income statement."},
+      {id:"dep",label:"Depreciation expense",ans:p.dep,signed:1,work:"Add back "+d$(p.dep),wrong:v=>v===-p.dep?"Depreciation reduced net income but used no cash, so add it back.":v===p.E.ad-p.B.ad?"That is the change in Accumulated Depreciation, which also includes the depreciation removed when equipment was sold. Use depreciation expense.":"Use depreciation expense from the income statement."},
+      {id:"gl",label:gainTxt+" on sale of equipment",ans:-p.gl,signed:1,work:(p.gl>0?"Deduct the gain: −":"Add back the loss: +")+d$(p.gl),wrong:v=>v===p.gl?(p.gl>0?"A gain increased net income, but the cash from the sale belongs in investing. Deduct the gain.":"A loss reduced net income but used no cash. Add it back."):"Remove the "+gainTxt.toLowerCase()+" from net income."}
+     ].concat(curr.map(c=>({id:"a_"+c[0],label:c[1],ans:adjFor(c),signed:1,work:c[1]+" "+incDec(c[3])+"d "+d$(c[3])+" → "+(adjFor(c)>0?"add ":"deduct ")+d$(c[3]),
+       wrong:v=>v===-adjFor(c)?"Right amount, wrong direction. "+adjWhy(c):"Use the change in "+c[1].toLowerCase()+": "+d$(c[3])+"."}))).concat([
+      {id:"op",label:"Net cash provided by operating activities",ans:p.op,signed:1,work:"Net income and all adjustments: "+d$(p.op),
+       wrong:(v,f)=>{const s=["ni","dep","gl","a_ar","a_inv","a_pre","a_ap","a_wp"].reduce((t,k)=>t+(f[k]||0),0);return (v===s&&s!==p.op)?"Your addition is right, but at least one adjustment is not.":"Add net income and every adjustment.";}}])},
+    {id:"inv",phase:"prep",tick:"Investing",title:"Cash flows from investing activities",
+     desc:"Use the additional information and the Equipment account to find the cash received and paid for long-term assets. Enter cash paid as a negative number.",
+     hint:"Cash from the sale = book value (cost − accumulated depreciation) "+(p.gl>0?"+ gain":"− loss")+". Equipment purchased = ending Equipment − beginning Equipment + cost of equipment sold.",
+     why:"Investing activities show cash spent on and received from long-term assets. The gain or loss was removed from operating activities because the full cash from the sale is reported here.",
+     fields:[
+      {id:"sale",label:"Cash received from the sale of equipment",ans:p.price,signed:1,work:"Book value "+d$(p.X)+" − "+d$(p.Y)+" = "+d$(p.BV)+(p.gl>0?" + gain ":" − loss ")+d$(p.gl)+" = "+d$(p.price),
+       wrong:v=>v===p.BV?"That is book value. "+(p.gl>0?"Add the gain":"Subtract the loss")+" to get the cash received.":v===p.X?"That is the original cost. Cash received = book value "+(p.gl>0?"+ gain":"− loss")+".":v===-p.price?"Cash received is an inflow, so enter it as a positive number.":v===p.BV-p.gl?(p.gl>0?"A gain means the price was more than book value: add it.":"A loss means the price was less than book value: subtract it."):"Cash received = book value "+(p.gl>0?"+ gain":"− loss")+"."},
+      {id:"buy",label:"Cash paid to purchase equipment",ans:-p.P,signed:1,work:d$(p.E.eq)+" − "+d$(p.B.eq)+" + "+d$(p.X)+" sold = "+d$(p.P)+" purchased → −"+d$(p.P),
+       wrong:v=>v===p.P?"Cash paid is an outflow, so enter it as a negative number.":Math.abs(v)===Math.abs(p.E.eq-p.B.eq)?"The change in Equipment also reflects the "+d$(p.X)+" of equipment sold. Purchases = ending − beginning + cost of equipment sold.":"Purchases = ending Equipment − beginning Equipment + cost of equipment sold."},
+      {id:"inv",label:"Net cash "+(p.inv>=0?"provided by":"used in")+" investing activities",ans:p.inv,signed:1,work:d$(p.price)+" − "+d$(p.P)+" = "+(p.inv<0?"−":"")+d$(p.inv),
+       wrong:v=>v===p.inv-p.Lnd?"Leave the land out. It was acquired with stock, not cash.":"Add the cash received and the cash paid."}
+     ]},
+    {id:"fin",phase:"prep",tick:"Financing",title:"Cash flows from financing activities",
+     desc:"Use the Notes Payable, Common Stock, and Retained Earnings accounts with the additional information. Enter cash paid as a negative number.",
+     hint:"Dividends paid = beginning Retained Earnings + net income − ending Retained Earnings. Stock issued for cash = increase in Common Stock − stock issued for land.",
+     why:"Financing activities show cash raised from and returned to lenders and stockholders. Retained Earnings changes by net income and dividends, so the dividends paid can be found from it.",
+     fields:[
+      {id:"np",label:"Repayment of notes payable",ans:-p.Rp,signed:1,work:d$(p.E.np)+" − "+d$(p.B.np)+" = −"+d$(p.Rp),wrong:v=>v===p.Rp?"Repaying a loan is an outflow, so enter it as a negative number.":"Use the change in Notes Payable."},
+      {id:"cs",label:"Issuance of common stock for cash",ans:p.S,signed:1,work:"Increase "+d$(p.E.cs-p.B.cs)+" − "+d$(p.Lnd)+" issued for land = "+d$(p.S),
+       wrong:v=>v===p.E.cs-p.B.cs?"Part of the increase in Common Stock was issued for land, which brought in no cash. Subtract it.":v===-p.S?"Issuing stock brings cash in, so enter it as a positive number.":"Increase in Common Stock − stock issued for land."},
+      {id:"div",label:"Payment of cash dividends",ans:-p.D,signed:1,work:d$(p.B.re)+" + "+d$(p.NI)+" − "+d$(p.E.re)+" = "+d$(p.D)+" paid → −"+d$(p.D),
+       wrong:v=>v===p.D?"Paying dividends is an outflow, so enter it as a negative number.":Math.abs(v)===Math.abs(p.E.re-p.B.re)?"That is the change in Retained Earnings, which is net income minus dividends. Dividends = beginning + net income − ending.":"Dividends = beginning Retained Earnings + net income − ending Retained Earnings."},
+      {id:"fin",label:"Net cash "+(p.fin>=0?"provided by":"used in")+" financing activities",ans:p.fin,signed:1,work:"−"+d$(p.Rp)+" + "+d$(p.S)+" − "+d$(p.D)+" = "+(p.fin<0?"−":"")+d$(p.fin),
+       wrong:(v,f)=>{const s=(f.np||0)+(f.cs||0)+(f.div||0);return (v===s&&s!==p.fin)?"Your addition is right, but at least one item is not.":"Add the three financing items.";}}
+     ]},
+    {id:"sum",phase:"prep",tick:"Summary",title:"Net change in cash and noncash activities",
+     desc:"Finish the statement. Check that it explains the actual change in cash on the balance sheets, then report the noncash transaction.",
+     hint:"Net change in cash = operating + investing + financing. Ending cash = beginning cash + net change, and it must match the December 31 balance sheet.",
+     why:"The statement of cash flows must explain the whole change in cash. If beginning cash plus the net change doesn't equal ending cash, something is missing or in the wrong direction.",
+     fields:[
+      {id:"net",label:"Net "+(p.net>0?"increase":"decrease")+" in cash",ans:p.net,signed:1,work:(p.op<0?"−":"")+d$(p.op)+" "+(p.inv<0?"− ":"+ ")+d$(p.inv)+" "+(p.fin<0?"− ":"+ ")+d$(p.fin)+" = "+(p.net<0?"−":"")+d$(p.net),
+       wrong:v=>v===-p.net?"Right amount, wrong direction.":"Operating + investing + financing."},
+      {id:"beg",label:"Cash, June 30, "+YEAR,ans:p.B.cash,signed:1,work:"From the June 30 balance sheet: "+d$(p.B.cash),wrong:()=>"Use the June 30 cash balance."},
+      {id:"end",label:"Cash, December 31, "+YEAR,ans:p.E.cash,signed:1,work:d$(p.B.cash)+" "+(p.net<0?"− ":"+ ")+d$(p.net)+" = "+d$(p.E.cash)+" ✓ matches the balance sheet",wrong:()=>"Beginning cash + net change in cash. It should match the December 31 balance sheet."},
+      {id:"nc",label:"Noncash activity: land acquired by issuing common stock",ans:p.Lnd,signed:1,work:"Disclosed separately: "+d$(p.Lnd),wrong:v=>v===-p.Lnd?"Report the noncash disclosure as a positive amount; it isn't a cash flow.":"Use the additional information about the land."}
+     ]},
+    {id:"q",phase:"int",tick:"Interpret",title:"Interpret the statement",
+     desc:"Answer a few questions about what Problem Solvers' statement of cash flows shows.",
+     hint:"Think about what each adjustment does to convert accrual-basis net income into cash.",
+     why:"Readers use the statement of cash flows to see whether a company's operations generate cash, how it is investing in its future, and how it is financed. Net income and operating cash flow often differ because of timing.",
+     fields:[
+      {id:"q1",kind:"sel",label:"Why is depreciation added to net income?",ans:"nc",opts:[["nc","It reduced net income but did not use cash this period"],["src","Depreciation is a source of cash"],["inv","It is an investing activity"],["rev","It increases revenue"]],work:"Depreciation is a noncash expense.",
+       wrong:v=>({src:"Depreciation doesn't bring in cash. It is added back only because it lowered net income without using cash.",inv:"Buying equipment is investing; depreciating it is a noncash expense in net income.",rev:"Depreciation is an expense, not revenue."})[v]},
+      {id:"q2",kind:"sel",label:"Operating cash flow was "+(p.op>p.NI?"higher":"lower")+" than net income. Which statement is true?",ans:"t",opts:[["t","Accrual-basis net income and cash flow differ because of noncash expenses and timing differences"],["e","The company made an error in its income statement"],["i","Operating cash flow includes the cash from selling equipment"],["d","Dividends are included in operating cash flow"]],work:"The operating adjustments explain the difference.",
+       wrong:v=>({e:"A difference is normal. Net income uses accrual accounting; cash flow counts actual receipts and payments.",i:"The cash from the sale is investing, which is why the "+(p.gl>0?"gain":"loss")+" is removed from operating activities.",d:"Under US GAAP, dividends paid are a financing activity."})[v]},
+      {id:"q3",kind:"sel",label:"Why isn't the land listed under investing activities?",ans:"nc",opts:[["nc","No cash was paid; it is disclosed as a noncash investing and financing activity"],["land","Land is never reported on the statement of cash flows"],["op","Land purchases are operating activities"],["dep","Land is not depreciated"]],work:"Only cash flows appear in the three sections.",
+       wrong:v=>({land:"A land purchase paid in cash would be an investing outflow. This one was paid with stock.",op:"Land is a long-term asset, so a cash purchase would be investing.",dep:"Whether land is depreciated doesn't decide where it goes. The issue is that no cash was paid."})[v]}
+     ]}
+  ];
+}
+
+// ---------- state ----------
+let cur=0, st=[], confirmReset=false;
+function blank(){return {vals:{},fb:null,tries:0,revealed:false,hint:false,status:null};}
+function save(){try{localStorage.setItem(KEY,JSON.stringify({seed,cur,year:YEAR,st:st.map(s=>({vals:s.vals,tries:s.tries,revealed:s.revealed,status:s.status}))}));}catch(e){}}
+function buildSet(sd){seed=sd;P=gen(sd);PARTS=buildParts();$("setNo").textContent="#"+sd;st=PARTS.map(blank);cur=0;buildTimeline();}
+function load(){
+  let o=null; try{o=JSON.parse(localStorage.getItem(KEY)||"null");}catch(e){}
+  if(o&&o.year!==YEAR)o=null;
+  let hs=null; try{const m=/^#set(\d{1,9})$/.exec(location.hash||"");if(m)hs=+m[1];}catch(e){}
+  if(hs&&(!o||o.seed!==hs)){buildSet(hs);return;}
+  if(o&&o.seed){try{buildSet(o.seed);if(Array.isArray(o.st)&&o.st.length===PARTS.length)o.st.forEach((x,i)=>{Object.assign(st[i],x);if(x.status&&!x.revealed)st[i].fb=grade(i);});cur=Math.max(0,Math.min(PARTS.length-1,o.cur|0));return;}catch(e){}}
+  buildSet(randomSeed());
+}
+const done=id=>{const i=PARTS.findIndex(p=>p.id===id);return i>=0&&!!st[i].status;};
+
+// ---------- timeline ----------
+const PH={an:{g:"h",label:"Analyze"},prep:{g:"est",label:"Prepare the statement"},int:{g:"bs",label:"Interpret"}};
+function buildTimeline(){
+  let h="";
+  ["an","prep","int"].forEach(ph=>{
+    h+='<div class="phase ph-'+PH[ph].g+'"><div class="phase-label">'+PH[ph].label+'</div><div class="ticks">';
+    PARTS.forEach((p,i)=>{if(p.phase===ph)h+='<button class="tick" data-i="'+i+'">'+p.tick+'</button>';});
+    h+='</div></div>';});
+  $("timeline").innerHTML=h;
+}
+$("timeline").addEventListener("click",e=>{const t=e.target.closest(".tick");if(t){cur=+t.dataset.i;confirmReset=false;render();scrollPart();}});
+const SLAB={first:"correct on first try",retry:"correct after retrying",shown:"answer shown"};
+function renderBar(){
+  const n=st.filter(s=>s.status).length, first=st.filter(s=>s.status==="first").length;
+  $("where").innerHTML='<b>'+n+' of '+PARTS.length+'</b> parts finished · now on '+esc(PARTS[cur].tick);
+  const sc=$("score"); sc.hidden=n===0; sc.textContent="First-try correct: "+first+" of "+n;
+  document.querySelectorAll(".tick").forEach(t=>{const i=+t.dataset.i;
+    t.className="tick"+(st[i].status?" done s-"+st[i].status:"")+(i===cur?" cur":"");
+    t.title=PARTS[i].title+(st[i].status?" ("+SLAB[st[i].status]+")":"");
+    t.setAttribute("aria-label","Part "+(i+1)+": "+PARTS[i].title+(st[i].status?", "+SLAB[st[i].status]:""));});
+}
+
+// ---------- grading ----------
+function grade(i){
+  const p=PARTS[i], s=st[i], res={}; let all=true;
+  const nums={}; p.fields.forEach(f=>{if(!f.kind)nums[f.id]=parseAmt(s.vals[f.id]);});
+  p.fields.forEach(f=>{
+    const raw=s.vals[f.id];
+    if(f.kind){if(!raw){res[f.id]={ok:false,msg:"Make a choice."};all=false;return;}
+      if(raw===f.ans){res[f.id]={ok:true};return;} res[f.id]={ok:false,msg:f.wrong(raw)||"Not quite."};all=false;return;}
+    const v=nums[f.id];
+    if(v===null){res[f.id]={ok:false,msg:"Enter an amount. Use 0 if there is none."};all=false;return;}
+    if(isNaN(v)){res[f.id]={ok:false,msg:"Enter a number only, like 2400, −2400, or (2,400)."};all=false;return;}
+    if(v===f.ans){res[f.id]={ok:true};return;}
+    res[f.id]={ok:false,msg:f.wrong(v,nums)};all=false;});
+  return {res,all,wrong:Object.values(res).filter(x=>!x.ok).length};
+}
+
+// ---------- part card ----------
+function radios(name,opts,val,lock,state,label,stack){
+  return '<fieldset class="cg'+(state==="ok"?" grp-ok":state==="no"?" grp-no":"")+'"><legend class="sr">'+esc(label)+'</legend><div class="choices'+(stack?" stack":"")+'">'+
+    opts.map(o=>'<label class="choice"><input type="radio" name="'+name+'" value="'+esc(o[0])+'"'+(val===o[0]?" checked":"")+(lock?" disabled":"")+'><span>'+esc(o[1])+'</span></label>').join("")+'</div></fieldset>';
+}
+function fieldHTML(f,s,lock){
+  const r=s.fb&&s.fb.res[f.id], cls=s.revealed?"":r?(r.ok?" ok":" no"):"", val=s.vals[f.id]==null?"":s.vals[f.id], gst=s.revealed?"":r?(r.ok?"ok":"no"):"";
+  let h='<div class="field'+cls+'">';
+  if(f.kind==="cls")h+='<div class="flabel" style="margin-bottom:6px">'+esc(f.label)+'</div>'+radios("f-"+f.id,f.opts,val,lock,gst,f.label);
+  else if(f.kind==="sel")h+='<div class="flabel" style="margin-bottom:6px">'+esc(f.label)+'</div>'+radios("f-"+f.id,f.opts,val,lock,gst,f.label,true);
+  else h+='<div class="frow"><label class="flabel" for="f-'+f.id+'">'+esc(f.label)+'</label><div class="inbox"><span class="pre">$</span><input id="f-'+f.id+'" data-f="'+f.id+'" inputmode="text" autocomplete="off" value="'+esc(val)+'"'+(lock?" disabled":"")+'></div></div>';
+  if(r&&!r.ok&&!s.revealed)h+='<div class="fmsg no"><span>✗</span><span>'+esc(r.msg)+'</span></div>';
+  if(s.revealed||(r&&r.ok&&s.fb.all))h+='<div class="work">'+esc(f.work)+'</div>';
+  else if(r&&r.ok)h+='<div class="fmsg ok"><span>✓</span><span>Correct.</span></div>';
+  return h+'</div>';
+}
+function controls(primary){
+  let nav;
+  if(confirmReset)nav='<span class="ask">Start over with:</span><button class="btn small" data-act="resetNew">New problem set</button><button class="btn small" data-act="resetSame">Same numbers</button><button class="btn small" data-act="cancelReset">Cancel</button>';
+  else nav='<button class="btn small" data-act="back"'+(cur===0?" disabled":"")+'>← Back</button><button class="btn small" data-act="reset">⟲ Start over</button>';
+  return '<div class="actions"><div class="grp">'+nav+'</div><div class="grp">'+primary+'</div></div>';
+}
+function renderPart(){
+  const p=PARTS[cur], s=st[cur], lock=!!s.status;
+  let h='<div class="entry-meta"><span class="pill '+PH[p.phase].g+'">Part '+(cur+1)+' of '+PARTS.length+'</span><span>'+PH[p.phase].label+'</span></div><h3 class="entry-title">'+esc(p.title)+'</h3><p class="entry-desc">'+esc(p.desc)+'</p>';
+  h+='<div class="fields">'+p.fields.map(f=>fieldHTML(f,s,lock)).join("")+'</div>';
+  if(s.revealed)h+='<div class="overall shown"><b>Answers shown.</b> Work through each answer, then try a new problem set on your own.</div>';
+  else if(s.fb){if(s.fb.all)h+='<div class="overall ok"><b>✓ '+(s.tries===1?"All correct on the first try.":"All correct after "+s.tries+" tries.")+'</b></div>';
+    else h+='<div class="overall no"><b>Not quite yet.</b> Fix the '+(s.fb.wrong===1?"answer":s.fb.wrong+" answers")+' marked ✗ and check again.</div>';}
+  if(lock)h+='<div class="why"><b>Why it matters</b><br>'+esc(p.why)+'</div>';
+  if(s.hint&&!lock)h+='<div class="hintbox"><b>Hint:</b> '+esc(p.hint)+'</div>';
+  let prim;
+  const allDone=st.every(x=>x.status);
+  if(lock)prim=cur<PARTS.length-1?'<button class="btn primary" data-act="next">Next part →</button>':allDone?'<button class="btn primary" data-act="resetNew">New problem set →</button>':'<button class="btn primary" data-act="todo">Go to the unfinished part →</button>';
+  else prim=(!s.hint?'<button class="btn small" data-act="hint">Show a hint</button>':'')+'<button class="btn small" data-act="show">Show the answer</button><button class="btn primary" data-act="check">Check my answers</button>';
+  if(allDone&&cur===PARTS.length-1){const c=x=>st.filter(v=>v.status===x).length;
+    h+='<div class="effects"><span class="eff up">First try '+c("first")+'</span><span class="eff none">Retried '+c("retry")+'</span><span class="eff none">Answer shown '+c("shown")+'</span></div>';}
+  $("part").innerHTML=h+controls(prim);
+  $("partSub").textContent=lock?(s.revealed?"Answers shown":"Complete"):"Enter your answers";
+}
+$("part").addEventListener("click",e=>{
+  const b=e.target.closest("[data-act]"); if(!b||b.disabled)return;
+  const act=b.dataset.act, s=st[cur], p=PARTS[cur];
+  if(act==="check"){s.tries++;s.fb=grade(cur);if(s.fb.all)s.status=s.tries===1?"first":"retry";else if(s.tries>=2)s.hint=true;render();
+    const bad=$("part").querySelector(".field.no input");if(bad)bad.focus();else focus("next")||focus("resetNew");}
+  else if(act==="hint"){s.hint=true;renderPart();}
+  else if(act==="show"){s.revealed=true;s.status="shown";p.fields.forEach(f=>s.vals[f.id]=f.kind?f.ans:(f.ans<0?"−"+fmt(f.ans):fmt(f.ans)));s.fb=null;render();focus("next");}
+  else if(act==="next"){cur++;render();scrollPart();const f=$("part").querySelector("input:not([disabled])");if(f)f.focus({preventScroll:true});}
+  else if(act==="back"){cur--;render();scrollPart();}
+  else if(act==="todo"){cur=st.findIndex(x=>!x.status);render();scrollPart();}
+  else if(act==="reset"){confirmReset=true;renderPart();}
+  else if(act==="cancelReset"){confirmReset=false;renderPart();}
+  else if(act==="resetSame"){confirmReset=false;st=PARTS.map(blank);cur=0;render();scrollPart();}
+  else if(act==="resetNew"){confirmReset=false;let sd=randomSeed();if(sd===seed)sd++;buildSet(sd);render();scrollPart();}
+});
+function focus(a){const x=$("part").querySelector('[data-act="'+a+'"]');if(x){x.focus({preventScroll:true});return true;}return false;}
+function onField(e){
+  const el=e.target, s=st[cur]; let id=null;
+  if(el.type==="radio"&&el.name.startsWith("f-")){id=el.name.slice(2);s.vals[id]=el.value;}
+  else if(el.dataset&&el.dataset.f){id=el.dataset.f;s.vals[id]=el.value;}
+  if(!id)return;
+  if(s.fb&&s.fb.res[id]){delete s.fb.res[id];const box=el.closest(".field");if(box){box.className="field";const fs=box.querySelector("fieldset");if(fs)fs.className="cg";const m=box.querySelector(".fmsg");if(m)m.remove();}}
+  save();
+}
+$("part").addEventListener("input",onField);
+$("part").addEventListener("change",onField);
+$("part").addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.matches("input:not([type=radio])")){e.preventDefault();const c=$("part").querySelector('[data-act="check"]');if(c)c.click();}});
+function scrollPart(){const p=$("pPart");const r=p.getBoundingClientRect();const top=parseFloat(getComputedStyle(p).scrollMarginTop)||0;if(r.top<top-2||r.top>window.innerHeight*0.6)p.scrollIntoView({block:"start",behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"});}
+
+// ---------- source documents ----------
+function renderDocs(){
+  const p=P, showChg=done("chg");
+  const row=(id,lab,o)=>{o=o||{};const b=p.B[id],e=p.E[id],d=e-b;return '<tr class="'+(o.cls||"")+'"><td class="'+(o.i?"i"+o.i:"")+'">'+lab+'</td><td class="n">'+fmt(b)+'</td><td class="n">'+fmt(e)+'</td><td class="dl '+(showChg?(d>0?"up":d<0?"down":"zero"):"zero")+'">'+(showChg?(d===0?"—":(d>0?"+":"−")+fmt(d)):"?")+'</td></tr>';};
+  const tot=(lab,b,e)=>'<tr class="tot"><td>'+lab+'</td><td class="n dul">'+d$(b)+'</td><td class="n dul">'+d$(e)+'</td><td class="dl"></td></tr>';
+  let h='<table class="st"><caption><div class="cap-firm">Problem Solvers, Inc.</div><div class="cap-name">Comparative Balance Sheets</div><div class="cap-date">June 30 and December 31, '+YEAR+'</div></caption><thead><tr><th style="text-align:left"></th><th>June 30</th><th>Dec 31</th><th class="dl">Change</th></tr></thead><tbody>';
+  h+='<tr class="h"><td>Assets</td><td></td><td></td><td></td></tr>'+LINES.slice(0,7).map(([id,lab])=>row(id,lab,{i:1,cls:id==="cash"?"nrv":""})).join("")+tot("Total assets",p.totA(p.B),p.totA(p.E));
+  h+='<tr class="h"><td>Liabilities and stockholders\' equity</td><td></td><td></td><td></td></tr>'+LINES.slice(7).map(([id,lab])=>row(id,lab,{i:1})).join("")+tot("Total liabilities and stockholders' equity",p.totL(p.B),p.totL(p.E));
+  h+='</tbody></table>';
+  if(!showChg)h+='<p class="note">The Change column fills in after Part 1.</p>';
+  $("bs").innerHTML=h;
+  const R=(lab,v,o)=>{o=o||{};return '<tr class="'+(o.cls||"")+'"><td class="'+(o.i?"i"+o.i:"")+'">'+lab+'</td><td class="n '+(o.u||"")+'">'+(v==null?"":money(v,o.d))+'</td></tr>';};
+  let s='<table class="st"><caption><div class="cap-firm">Problem Solvers, Inc.</div><div class="cap-name">Income Statement</div><div class="cap-date">For the Six Months Ended December 31, '+YEAR+'</div></caption><tbody>';
+  s+=R("Sales revenue",p.sales,{d:1})+R("Service revenue",p.svc,{u:"ul"})+R("Total revenues",p.sales+p.svc)+R("Cost of goods sold",-p.cogs,{i:1})+R("Operating expenses",-p.opex,{i:1})+R("Depreciation expense",-p.dep,{i:1,cls:"nrv"})+
+     R((p.gl>0?"Gain":"Loss")+" on sale of equipment",p.gl,{i:1,cls:"nrv"})+R("Interest expense",-p.intx,{i:1,u:"ul"})+R("Income before income tax",p.pretax)+R("Income tax expense",-p.tax,{u:"ul"})+R("Net income",p.NI,{cls:"tot",u:"dul",d:1});
+  s+='</tbody></table>';
+  s+='<div class="is-mini"><h3>Additional information for the six months</h3><ol class="addl">'+
+    '<li>Sold equipment that cost '+d$(p.X)+', with accumulated depreciation of '+d$(p.Y)+', for cash. The '+(p.gl>0?"gain":"loss")+' is on the income statement.</li>'+
+    '<li>Bought new equipment for cash.</li>'+
+    '<li>Acquired land by issuing '+d$(p.Lnd)+' of common stock. No cash changed hands.</li>'+
+    '<li>Issued additional common stock for cash.</li>'+
+    '<li>Repaid part of the long-term note payable. No new notes were signed.</li>'+
+    '<li>Declared and paid cash dividends.</li>'+
+    '<li>Accounts payable relate to purchases of inventory; wages payable to employees\' wages.</li></ol></div>';
+  $("is").innerHTML=s;
+}
+
+// ---------- statement of cash flows ----------
+function renderSCF(){
+  const p=P, o=done("op"), i=done("inv"), f=done("fin"), s=done("sum");
+  const R=(lab,v,show,opt)=>{opt=opt||{};return '<tr class="'+(opt.cls||"")+'"><td class="'+(opt.i?"i"+opt.i:"")+'">'+lab+'</td><td class="n '+(opt.u1||"")+'">'+(opt.col===2?"":show?money(v,opt.d):"?")+'</td><td class="n '+(opt.u2||"")+'">'+(opt.col===2?(show?money(v,opt.d):"?"):"")+'</td></tr>';};
+  const H=lab=>'<tr class="h"><td>'+lab+'</td><td></td><td></td></tr>';
+  const chgLab=(nm,v)=>(v>0?"Increase":"Decrease")+" in "+nm;
+  let h='<table class="st"><caption><div class="cap-firm">Problem Solvers, Inc.</div><div class="cap-name">Statement of Cash Flows</div><div class="cap-date">For the Six Months Ended December 31, '+YEAR+'</div></caption><tbody>';
+  h+=H("Cash flows from operating activities")+R("Net income",p.NI,o,{i:1,col:2,d:1})+
+    '<tr><td class="i1" colspan="3" style="color:var(--muted);font-size:13.5px">Adjustments to reconcile net income to net cash provided by operating activities:</td></tr>'+
+    R("Depreciation expense",p.dep,o,{i:2})+R((p.gl>0?"Gain":"Loss")+" on sale of equipment",-p.gl,o,{i:2})+
+    R(chgLab("accounts receivable",p.dAR),-p.dAR,o,{i:2})+R(chgLab("inventory",p.dInv),-p.dInv,o,{i:2})+R(chgLab("prepaid insurance",p.dPre),-p.dPre,o,{i:2})+
+    R(chgLab("accounts payable",p.dAP),p.dAP,o,{i:2})+R(chgLab("wages payable",p.dWP),p.dWP,o,{i:2,u1:"ul"})+
+    R("Total adjustments",p.op-p.NI,o,{i:2,col:2,u2:"ul"})+R("Net cash provided by operating activities",p.op,o,{cls:"tot",col:2});
+  h+=H("Cash flows from investing activities")+R("Sale of equipment",p.price,i,{i:1})+R("Purchase of equipment",-p.P,i,{i:1,u1:"ul"})+R("Net cash "+(p.inv>=0?"provided by":"used in")+" investing activities",p.inv,i,{cls:"tot",col:2});
+  h+=H("Cash flows from financing activities")+R("Repayment of notes payable",-p.Rp,f,{i:1})+R("Issuance of common stock",p.S,f,{i:1})+R("Payment of cash dividends",-p.D,f,{i:1,u1:"ul"})+R("Net cash "+(p.fin>=0?"provided by":"used in")+" financing activities",p.fin,f,{cls:"tot",col:2,u2:"ul"});
+  h+=R("Net "+(p.net>0?"increase":"decrease")+" in cash",p.net,s,{cls:"tot",col:2})+R("Cash, June 30, "+YEAR,p.B.cash,s,{col:2,u2:"ul"})+R("Cash, December 31, "+YEAR,p.E.cash,s,{cls:"nrv",col:2,u2:"dul",d:1});
+  h+='</tbody></table>';
+  h+='<div class="is-mini"><h3>Noncash investing and financing activities</h3><table class="st"><tbody>'+R("Land acquired by issuing common stock",p.Lnd,s,{col:2,d:1})+'</tbody></table></div>';
+  if(s)h+='<div class="bs-note"><b>✓ The statement explains the whole change in cash.</b> '+d$(p.B.cash)+' '+(p.net<0?"−":"+")+' '+d$(p.net)+' = '+d$(p.E.cash)+', the December 31 balance.</div>';
+  else h+='<p class="note">Amounts appear as you finish each part. Negative amounts are shown in parentheses.</p>';
+  $("scf").innerHTML=h;
+}
+
+function render(){renderBar();renderPart();renderDocs();renderSCF();save();
+  const ct=document.querySelector(".tick.cur");
+  if(ct){const tl=$("timeline");const cr=ct.getBoundingClientRect(),tr=tl.getBoundingClientRect();if(cr.left<tr.left||cr.right>tr.right)tl.scrollLeft+=cr.left-tr.left-tr.width/2;}}
+function measure(){const r=document.documentElement;r.style.setProperty("--b1",$("band1").offsetHeight+"px");r.style.setProperty("--b2",$("band2").offsetHeight+"px");}
+try{new ResizeObserver(measure).observe($("band1"));new ResizeObserver(measure).observe($("band2"));}catch(e){window.addEventListener("resize",measure);}
+measure();
+
+window.__lab={gen,parts:()=>PARTS};
+load();
+render();
+})();
+</script>
+</body>
+</html>
